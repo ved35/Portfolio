@@ -1,0 +1,64 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navposition{
+    position: sticky;
+    top: 0;
+}
+
+.navbar{
+    display: flex;
+    flex: 5;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .profile{
+    display: flex;
+    align-items: center;
+    flex: 2;
+    align-self: flex-start;
+}
+
+.navbar .profile .logo{
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.navbar .profile .namepro{
+    margin-left: 10px;
+}
+
+.rightnav{
+    flex: 3;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+
+.listitem{
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+}
+
+.listitem .nav-item a{
+    padding: 10px 30px;
+    border-radius: 10px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.active{
+    color: #ff014f;
+    box-shadow: 10px 10px 19px #1c1e22, -10px -10px 19px #262a2e;
+}
+
