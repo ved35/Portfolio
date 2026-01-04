@@ -60,7 +60,7 @@ const Contact = () => {
                 href={`mailto:${portfolioData.contact.formEmail}`}
                 className="flex items-center gap-4 text-slate-300 hover:text-white transition-colors group"
               >
-                <div className="p-3 bg-slate-800 rounded-lg group-hover:bg-white/10 transition-colors">
+                <div className="p-3 bg-white/5 rounded-lg group-hover:bg-white/10 transition-colors">
                   <Mail className="w-5 h-5" />
                 </div>
                 {portfolioData.contact.formEmail}
@@ -76,7 +76,7 @@ const Contact = () => {
                   href={portfolioData.social.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 bg-slate-800 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
+                  className="p-3 bg-white/5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
                 >
                   <Github className="w-5 h-5" />
                 </a>
@@ -84,7 +84,7 @@ const Contact = () => {
                   href={portfolioData.social.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 bg-slate-800 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
+                  className="p-3 bg-white/5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
                 >
                   <Linkedin className="w-5 h-5" />
                 </a>

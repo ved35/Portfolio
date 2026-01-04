@@ -33,7 +33,7 @@ const About = () => {
         {/* Image Side */}
         <div className="relative group about-animate">
           <div className="absolute -inset-1 bg-linear-to-r from-slate-700 to-slate-800 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200" />
-          <div className="relative aspect-square rounded-2xl overflow-hidden border border-slate-800 bg-slate-900">
+          <div className="relative aspect-auto rounded-2xl overflow-hidden border border-slate-800 bg-slate-900">
             {/* Using a placeholder if image fails or needs generation, but using data path */}
             <img
               src={portfolioData.about.image}

@@ -1,4 +1,5 @@
 import type { PortfolioData } from '../types';
+import vedImage from '../assets/ved.png';
 
 export const portfolioData: PortfolioData = {
   // Personal Information
@@ -22,7 +23,7 @@ export const portfolioData: PortfolioData = {
     headline: 'Building amazing digital experiences with modern technologies',
     description:
       'I am a passionate App/Web developer with expertise in creating scalable web applications. I love combining design with functionality to create intuitive user experiences. With 2+ years of experience, I have worked on various projects ranging from startups to enterprise solutions.',
-    image: '/assets/profile.jpg',
+    image: vedImage,
   },
 
   // Skills
