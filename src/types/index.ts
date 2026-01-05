@@ -10,6 +10,9 @@ export interface About {
   headline: string;
   description: string;
   image: string;
+  totalprojects: number;
+  totalyears: number;
+  subDescription: string[];
 }
 
 export interface SkillCategory {

@@ -1,5 +1,9 @@
 import type { PortfolioData } from '../types';
 import vedImage from '../assets/ved.png';
+import resumePdf from '../assets/resume.pdf';
+import chatImage from '../assets/projects/chat.png';
+import bookwormImage from '../assets/projects/bookworm.png';
+import blogImage from '../assets/projects/blog.png';
 
 export const portfolioData: PortfolioData = {
   // Personal Information
@@ -8,7 +12,7 @@ export const portfolioData: PortfolioData = {
   email: 'vedpatel6101@gmail.com',
   phone: '+91 7203883017',
   location: 'Surat, Gujarat',
-  resumeLink: '/assets/resume.pdf',
+  resumeLink: resumePdf,
 
   // Social Links
   social: {
@@ -24,6 +28,15 @@ export const portfolioData: PortfolioData = {
     description:
       'I am a passionate App/Web developer with expertise in creating scalable web applications. I love combining design with functionality to create intuitive user experiences. With 2+ years of experience, I have worked on various projects ranging from startups to enterprise solutions.',
     image: vedImage,
+    totalprojects: 15,
+    totalyears: 2,
+    subDescription: [
+      'I build things for the web. My goal is to always build products that provide pixel-perfect, performant experiences.',
+      'I am a continuous learner who stays up-to-date with the latest technologies and industry trends to deliver cutting-edge solutions.',
+      'I value clean code, scalability, and collaboration, ensuring that every project is built to last and easy to maintain.',
+      'I approach every challenge with a problem-solving mindset, dedicated to finding efficient and innovative solutions for complex requirements.',
+      'My passion lies in transforming creative ideas into functional digital realities, paying attention to the smallest details for maximum impact.',
+    ],
   },
 
   // Skills
@@ -124,55 +137,80 @@ export const portfolioData: PortfolioData = {
   projects: [
     {
       id: 1,
-      title: 'E-Commerce Platform',
+      title: 'Real-Time Chat Application',
       description:
-        'A full-featured e-commerce platform with real-time inventory management, payment integration, and analytics dashboard.',
+        'A full-featured real-time chat platform with group messaging, image sharing, and instant notifications using WebSocket technology.',
       longDescription:
-        'Built a scalable e-commerce platform that supports 10,000+ concurrent users. Features include real-time inventory sync, Stripe payment integration, order tracking, and an admin dashboard with analytics.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Stripe API', 'Redis'],
-      image: '/assets/projects/ecommerce.jpg',
-      githubLink: 'https://github.com',
-      liveLink: 'https://example.com',
+        'Built a scalable real-time chat application supporting unlimited concurrent users. Features include one-to-one messaging, group chats, image uploads via Cloudinary, message replies, JWT authentication, role-based access control, and real-time notifications using Socket.io. The platform supports multiple participants with group creation and management capabilities.',
+      technologies: [
+        'React',
+        'TypeScript',
+        'Node.js',
+        'Express',
+        'MongoDB',
+        'Socket.io',
+        'Tailwind CSS',
+        'Cloudinary',
+        'JWT',
+        'Passport',
+      ],
+      image: chatImage,
+      githubLink: 'https://github.com/ved35/Chat',
+      liveLink: '',
       featured: true,
     },
     {
-      id: 2,
-      title: 'Social Media Dashboard',
+      id: 1,
+      title: 'BookWorm – Full-Stack React Native App',
       description:
-        'Analytics dashboard for managing multiple social media accounts with real-time metrics and scheduling.',
+        'A comprehensive full-stack book review and management application with user authentication, infinite scrolling feed, and image uploads.',
       longDescription:
-        'Created a comprehensive social media management tool that integrates with Instagram, Twitter, and Facebook. Features real-time analytics, post scheduling, and performance tracking.',
-      technologies: ['React', 'Express', 'PostgreSQL', 'Chart.js', 'OAuth2'],
-      image: '/assets/projects/dashboard.jpg',
-      githubLink: 'https://github.com',
-      liveLink: 'https://example.com',
+        'Built a complete full-stack project using React Native and Expo for the mobile app, paired with a Node.js/Express backend. Features include JWT-based authentication, MongoDB for data storage, Cloudinary for image handling, infinite scrolling on the home feed, post creation with ratings and images, user profiles, and cross-platform support for Android, iOS, and web.',
+      technologies: [
+        'Node.js',
+        'Express',
+        'MongoDB',
+        'JWT',
+        'bcryptjs',
+        'Cloudinary',
+        'React Native',
+        'Expo',
+        'Axios',
+        'Zustand',
+      ],
+      image: bookwormImage,
+      githubLink: 'https://github.com/ved35/Book',
+      liveLink: '',
       featured: true,
     },
     {
-      id: 3,
-      title: 'AI Chat Application',
+      id: 1,
+      title: 'Blog-app - Full-Stack Blogging Platform',
       description:
-        'Real-time chat application with AI-powered suggestions and smart notifications.',
+        'A modern, feature-rich blogging platform with user authentication, content management, and interactive features built with React, Node.js, and MongoDB.',
       longDescription:
-        'Developed a chat app with WebSocket support for real-time messaging, AI-powered reply suggestions, and intelligent notification system.',
-      technologies: ['React', 'Socket.io', 'Node.js', 'OpenAI API', 'Firebase'],
-      image: '/assets/projects/chat.jpg',
-      githubLink: 'https://github.com',
-      liveLink: 'https://example.com',
-      featured: false,
-    },
-    {
-      id: 4,
-      title: 'Task Management App',
-      description:
-        'Collaborative task management tool with real-time updates and team features.',
-      longDescription:
-        'A Trello-like task management application with drag-and-drop functionality, real-time collaboration, and team workspaces.',
-      technologies: ['React', 'Firebase', 'Tailwind CSS', 'Drag-and-drop'],
-      image: '/assets/projects/tasks.jpg',
-      githubLink: 'https://github.com',
-      liveLink: 'https://example.com',
-      featured: false,
+        'Developed a comprehensive blogging platform enabling users to create, manage, and interact with blog posts. Features include email/password and Google OAuth authentication with JWT session management, rich text editor with image upload via Cloudinary, dark/light theme toggle with Tailwind CSS, real-time search functionality, infinite scroll pagination, comment system with likes, user profiles, admin dashboard for content moderation, post categorization, and role-based access control (Admin/User).',
+      technologies: [
+        'React',
+        'Node.js',
+        'Express.js',
+        'MongoDB',
+        'Mongoose',
+        'Vite',
+        'Redux Toolkit',
+        'Tailwind CSS',
+        'Firebase Auth',
+        'React Quill',
+        'Flowbite React',
+        'JWT',
+        'bcryptjs',
+        'Cloudinary',
+        'React Router DOM',
+      ],
+      image: blogImage,
+      githubLink: 'https://github.com/ved35/Blog-app',
+      liveLink: '',
+      featured: true,
     },
   ],
 

@@ -64,21 +64,26 @@ const About = () => {
 
           <div className="grid grid-cols-2 gap-4">
             <Card className="p-4 text-center hover:-translate-y-1">
-              <h4 className="text-3xl font-bold text-white mb-1">5+</h4>
+              <h4 className="text-3xl font-bold text-white mb-1">
+                {portfolioData.about.totalyears}+
+              </h4>
               <p className="text-sm text-slate-400">Years Experience</p>
             </Card>
             <Card className="p-4 text-center hover:-translate-y-1">
-              <h4 className="text-3xl font-bold text-white mb-1">50+</h4>
+              <h4 className="text-3xl font-bold text-white mb-1">
+                {portfolioData.about.totalprojects}+
+              </h4>
               <p className="text-sm text-slate-400">Projects Completed</p>
             </Card>
           </div>
 
-          <div className="pt-4">
-            <p className="text-slate-400 italic border-l-4 border-slate-700 pl-4">
-              "I build things for the web. My goal is to always build products
-              that provide pixel-perfect, performant experiences."
-            </p>
-          </div>
+          {portfolioData.about.subDescription.map((subDescription) => (
+            <div className="pt-4">
+              <p className="text-slate-400 italic border-l-4 border-slate-700 pl-4">
+                {subDescription}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </SectionWrapper>

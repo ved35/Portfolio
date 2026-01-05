@@ -109,15 +109,20 @@ const Hero = () => {
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
 
-            <Button
-              variant="outline"
-              size="lg"
-              className="hero-btn group hover:border-accent/50"
-              onClick={() => window.open(portfolioData.resumeLink, '_blank')}
+            <a
+              href={portfolioData.resumeLink}
+              download="Ved_Patel_Resume.pdf"
+              className="hero-btn"
             >
-              <Download className="w-4 h-4 mr-2 group-hover:-translate-y-1 transition-transform text-accent" />
-              Download Resume
-            </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="group hover:border-accent/50 w-full"
+              >
+                <Download className="w-4 h-4 mr-2 group-hover:-translate-y-1 transition-transform text-accent" />
+                Download Resume
+              </Button>
+            </a>
           </div>
 
           <div className="flex items-center justify-center gap-6 pt-12 hero-text-reveal">
