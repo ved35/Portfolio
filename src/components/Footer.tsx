@@ -12,11 +12,7 @@ const Footer = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-sm text-slate-500">
-          <span>Built with</span>
-          <Heart className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" />
-          <span>using React & Tailwind</span>
-        </div>
+        <div className="flex items-center gap-2 text-sm text-slate-500"></div>
 
         <div className="flex items-center gap-6">
           <a
