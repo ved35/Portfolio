@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To My Best Friend 💜</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #667eea 0%,
+          #764ba2 50%,
+          #f093fb 100%
+        );
+        min-height: 100vh;
+        overflow-x: hidden;
+        color: #fff;
+      }
+
+      .floating-hearts {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .heart {
+        position: absolute;
+        font-size: 24px;
+        animation: float 8s infinite ease-in-out;
+        opacity: 0.6;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.6;
+        }
+        90% {
+          opacity: 0.6;
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .container {
+        position: relative;
+        z-index: 2;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .section {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 30px;
+        padding: 40px;
+        margin: 30px 0;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        animation: fadeInUp 1s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h1 {
+        font-size: 3em;
+        text-align: center;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow:
+            2px 2px 4px rgba(0, 0, 0, 0.3),
+            0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        to {
+          text-shadow:
+            2px 2px 4px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(255, 255, 255, 0.8);
+        }
+      }
+
+      h2 {
+        font-size: 2em;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      p {
+        font-size: 1.2em;
+        line-height: 1.8;
+        margin-bottom: 15px;
+      }
+
+      .memory-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+      }
+
+      .memory-card {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        padding: 25px;
+        text-align: center;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        cursor: pointer;
+      }
+
+      .memory-card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .memory-icon {
+        font-size: 3em;
+        margin-bottom: 15px;
+        display: block;
+      }
+
+      .question-section {
+        text-align: center;
+        padding: 60px 40px;
+      }
+
+      .question-text {
+        font-size: 2em;
+        margin-bottom: 40px;
+        font-weight: bold;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 20px 50px;
+        font-size: 1.5em;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: bold;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .btn-yes {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+      }
+
+      .btn-yes:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 25px rgba(245, 87, 108, 0.5);
+      }
+
+      .btn-no {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+        position: relative;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .final-message {
+        text-align: center;
+        animation: scaleIn 0.5s ease-out;
+      }
+
+      @keyframes scaleIn {
+        from {
+          transform: scale(0);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .final-message h2 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+
+      .sparkle {
+        display: inline-block;
+        animation: sparkle 1s ease-in-out infinite;
+      }
+
+      @keyframes sparkle {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.2);
+          opacity: 0.8;
+        }
+      }
+
+      .image-placeholder {
+        width: 100%;
+        max-width: 400px;
+        height: 300px;
+        margin: 20px auto;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.3),
+          rgba(255, 255, 255, 0.1)
+        );
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4em;
+        border: 2px dashed rgba(255, 255, 255, 0.5);
+      }
+
+      .timeline {
+        position: relative;
+        padding: 20px 0;
+      }
+
+      .timeline-item {
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 20px;
+        padding: 30px;
+        margin: 20px 0;
+        position: relative;
+        animation: slideInLeft 0.6s ease-out;
+      }
+
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .timeline-item:nth-child(even) {
+        animation: slideInRight 0.6s ease-out;
+      }
+
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .quote-box {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.3),
+          rgba(255, 255, 255, 0.15)
+        );
+        border-left: 5px solid rgba(255, 255, 255, 0.7);
+        padding: 30px;
+        margin: 30px 0;
+        border-radius: 15px;
+        font-style: italic;
+        font-size: 1.3em;
+        text-align: center;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        margin: 20px 0;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+        width: 0%;
+        animation: fillProgress 2s ease-out forwards;
+        border-radius: 10px;
+      }
+
+      @keyframes fillProgress {
+        to {
+          width: 100%;
+        }
+      }
+
+      .counter {
+        font-size: 3em;
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+        margin: 20px 0;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="floating-hearts" id="hearts"></div>
+
+    <div class="container">
+      <div class="section">
+        <h1>💜 To My Best Friend 💜</h1>
+        <img
+          src="https://cdn.pixabay.com/photo/2025/11/17/09/31/09-31-31-67_1280.jpg"
+          alt="Best Friends"
+          style="
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 20px;
+            margin: 20px auto;
+            display: block;
+          "
+        />
+        <p style="text-align: center; font-style: italic; font-size: 1.4em">
+          7 Years of Beautiful Friendship
+        </p>
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+        <p style="text-align: center; font-size: 1.1em; opacity: 0.9">
+          2,555 days • 61,320 hours • 3,679,200 minutes of memories
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>✨ Before I Tell You Everything... ✨</h2>
+        <p style="text-align: center; font-size: 1.3em; margin-bottom: 30px">
+          I need to ask you something first...
+        </p>
+      </div>
+
+      <!-- Question 1 - Moving Button -->
+      <div class="section question-section" id="question1">
+        <h2 class="question-text">
+          Do you remember our first conversation? 🌟
+        </h2>
+        <p style="font-size: 1.5em; margin: 30px 0; opacity: 0.9">
+          Seven years ago, we had no idea we'd become this close...
+        </p>
+        <div class="button-container">
+          <button class="btn btn-yes" onclick="nextQuestion(1)">
+            Yes, I do! 💭
+          </button>
+          <button class="btn btn-no" id="noBtn1" onclick="moveButton('noBtn1')">
+            Not really 🤔
+          </button>
+        </div>
+      </div>
+
+      <!-- Question 2 - Shrinking Button -->
+      <div class="section question-section hidden" id="question2">
+        <h2 class="question-text">
+          Do you realize how much you mean to me? 💖
+        </h2>
+        <p style="font-size: 1.5em; margin: 30px 0; opacity: 0.9">
+          You might not see it, but you've changed my life in so many ways...
+        </p>
+        <div class="button-container">
+          <button class="btn btn-yes" onclick="nextQuestion(2)">
+            I hope so! 🥺
+          </button>
+          <button
+            class="btn btn-no"
+            id="noBtn2"
+            onmouseover="shrinkButton('noBtn2')"
+          >
+            Tell me more 💕
+          </button>
+        </div>
+        <p
+          id="shrinkMessage2"
+          style="
+            font-size: 1.2em;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 0.5s;
+          "
+        >
+          Oops! That button is disappearing... pick the other one! 😊
+        </p>
+      </div>
+
+      <!-- Question 3 - Multiple Fake Buttons -->
+      <div class="section question-section hidden" id="question3">
+        <h2 class="question-text">
+          Do our late-night talks mean as much to you? 🌙
+        </h2>
+        <p style="font-size: 1.5em; margin: 30px 0; opacity: 0.9">
+          Those late night conversations where we share our deepest thoughts...
+        </p>
+        <div class="button-container" id="buttonContainer3">
+          <button class="btn btn-yes" onclick="nextQuestion(3)">
+            Absolutely! ✨
+          </button>
+          <button class="btn btn-no" id="noBtn3" onclick="multiplyButtons()">
+            They're the best 🌟
+          </button>
+        </div>
+        <p
+          id="multiplyMessage"
+          style="
+            font-size: 1.2em;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 0.5s;
+          "
+        >
+          Wait... which button is the right one now? 😂
+        </p>
+      </div>
+
+      <!-- Question 4 - Spinning Button -->
+      <div class="section question-section hidden" id="question4">
+        <h2 class="question-text">
+          Can you imagine life without our friendship? 🤔
+        </h2>
+        <p style="font-size: 1.5em; margin: 30px 0; opacity: 0.9">
+          Honestly, I can't. You've become such an important part of my world...
+        </p>
+        <div class="button-container">
+          <button class="btn btn-yes" onclick="nextQuestion(4)">
+            No way! 💜
+          </button>
+          <button
+            class="btn btn-no"
+            id="noBtn4"
+            onmouseover="spinButton('noBtn4')"
+          >
+            Never! 🙅‍♀️
+          </button>
+        </div>
+        <p
+          id="spinMessage4"
+          style="
+            font-size: 1.2em;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 0.5s;
+          "
+        >
+          That button seems dizzy! 🌀
+        </p>
+      </div>
+
+      <!-- Final Question -->
+      <div class="section question-section hidden" id="question5">
+        <h2 class="question-text">So here's my most important question...</h2>
+        <p style="font-size: 1.8em; margin: 30px 0; font-weight: bold">
+          Will you promise to stay by my side forever? 🥺💜
+        </p>
+        <p style="font-size: 1.3em; margin: 20px 0; opacity: 0.9">
+          Through all of life's ups and downs, adventures and challenges...
+        </p>
+        <div class="button-container">
+          <button class="btn btn-yes" onclick="showFinal()">
+            Forever & Always! 💕
+          </button>
+          <button class="btn btn-no" id="noBtn5" onclick="moveButton('noBtn5')">
+            You know it! ✨
+          </button>
+        </div>
+      </div>
+
+      <!-- Emotional Content -->
+      <div class="section hidden" id="emotionalContent">
+        <h2>💭 You Mean More Than You Realize 💭</h2>
+        <div class="quote-box">
+          "In a world where everything changes, your friendship has been my
+          constant. My safe harbor in the storm."
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <h3>🌅 When We First Met</h3>
+            <p>
+              I never imagined that meeting you would be one of the best things
+              to happen in my life. What started as a simple friendship grew
+              into something irreplaceable.
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <h3>🌙 Our Late Night Conversations</h3>
+            <p>
+              Those moments when the world is asleep and it's just us, sharing
+              everything - our fears, dreams, silly thoughts, and deepest
+              secrets. That's when I feel most understood.
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <h3>🎭 Through Every Emotion</h3>
+            <p>
+              You've seen me at my best and my worst. You've celebrated my
+              victories and held my hand through my struggles. You never judged,
+              you just... stayed.
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <h3>💫 Growing Together</h3>
+            <p>
+              We've both changed so much over these years, but somehow we've
+              grown closer. That's rare. That's precious. That's what makes us
+              special.
+            </p>
+          </div>
+        </div>
+
+        <div class="quote-box">
+          "I don't want to lose this. I don't want to lose us. You're not just
+          my friend - you're family."
+        </div>
+      </div>
+
+      <div class="section hidden" id="memoriesSection">
+        <h2>🌟 What Makes Us Special 🌟</h2>
+        <div class="memory-grid">
+          <div class="memory-card">
+            <span class="memory-icon">🌙</span>
+            <h3>3 AM Talks</h3>
+            <p>When the world sleeps, we connect on the deepest level</p>
+          </div>
+          <div class="memory-card">
+            <span class="memory-icon">😂</span>
+            <h3>Inside Jokes</h3>
+            <p>The ones that make us burst into laughter out of nowhere</p>
+          </div>
+          <div class="memory-card">
+            <span class="memory-icon">🤝</span>
+            <h3>Unconditional Support</h3>
+            <p>Always there, no matter what, no questions asked</p>
+          </div>
+          <div class="memory-card">
+            <span class="memory-icon">💭</span>
+            <h3>Comfortable Silence</h3>
+            <p>Not needing to say anything because we just understand</p>
+          </div>
+          <div class="memory-card">
+            <span class="memory-icon">🎭</span>
+            <h3>Raw Honesty</h3>
+            <p>Being our authentic selves without any pretense</p>
+          </div>
+          <div class="memory-card">
+            <span class="memory-icon">🌈</span>
+            <h3>Shared Dreams</h3>
+            <p>
+              Planning our futures and knowing we'll be there for each other
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Final Message -->
+      <div class="section hidden" id="finalMessage">
+        <div class="final-message">
+          <h2>
+            <span class="sparkle">🎉</span> I Knew You'd Say Yes!
+            <span class="sparkle">🎉</span>
+          </h2>
+          <div class="counter">💜 ∞ 💜</div>
+          <img
+            src="https://cdn.pixabay.com/photo/2025/11/17/09/41/09-41-45-338_1280.jpg"
+            alt="Friendship"
+            style="
+              width: 100%;
+              max-width: 400px;
+              height: auto;
+              border-radius: 20px;
+              margin: 20px auto;
+              display: block;
+            "
+          />
+
+          <div class="quote-box">
+            "Thank you for being my person. For understanding me without words.
+            For staying when others left. For making me laugh when I wanted to
+            cry. For being YOU."
+          </div>
+
+          <p style="font-size: 1.5em; margin: 30px 0">
+            Seven years down, a lifetime to go! 💜
+          </p>
+
+          <p style="font-size: 1.3em; margin: 20px 0; opacity: 0.95">
+            Here's to more late-night conversations, shared secrets, spontaneous
+            adventures, and countless memories yet to be made.
+          </p>
+
+          <div class="counter" style="font-size: 2em; margin-top: 40px">
+            Forever Grateful. Forever Friends. Forever Us. ✨
+          </div>
+
+          <p style="font-size: 1.8em; margin-top: 30px; font-weight: bold">
+            I love you, bestie! 💕🌟💜
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let currentQuestion = 1;
+
+      // Create floating hearts
+      function createHeart() {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = ['💜', '💗', '💖', '💕', '✨', '🌟', '💫'][
+          Math.floor(Math.random() * 7)
+        ];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDuration = Math.random() * 5 + 5 + 's';
+        heart.style.animationDelay = Math.random() * 3 + 's';
+        document.getElementById('hearts').appendChild(heart);
+
+        setTimeout(() => heart.remove(), 13000);
+      }
+
+      setInterval(createHeart, 700);
+
+      // Move to next question
+      function nextQuestion(current) {
+        document.getElementById(`question${current}`).classList.add('hidden');
+
+        if (current < 5) {
+          document
+            .getElementById(`question${current + 1}`)
+            .classList.remove('hidden');
+          // Scroll to the new question
+          setTimeout(() => {
+            document
+              .getElementById(`question${current + 1}`)
+              .scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 100);
+        } else {
+          showFinal();
+        }
+
+        // Add celebration hearts
+        for (let i = 0; i < 10; i++) {
+          setTimeout(createHeart, i * 100);
+        }
+      }
+
+      // Show final message
+      function showFinal() {
+        document.getElementById('question5').classList.add('hidden');
+        document.getElementById('emotionalContent').classList.remove('hidden');
+        document.getElementById('memoriesSection').classList.remove('hidden');
+        document.getElementById('finalMessage').classList.remove('hidden');
+
+        // Big celebration
+        for (let i = 0; i < 50; i++) {
+          setTimeout(createHeart, i * 80);
+        }
+
+        // Scroll to emotional content
+        setTimeout(() => {
+          document
+            .getElementById('emotionalContent')
+            .scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 300);
+      }
+
+      // Move No button (Question 1)
+      function moveButton(btnId) {
+        const btn = document.getElementById(btnId);
+        const maxX = window.innerWidth - btn.offsetWidth - 100;
+        const maxY = window.innerHeight - btn.offsetHeight - 100;
+
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+
+        btn.style.position = 'fixed';
+        btn.style.left = randomX + 'px';
+        btn.style.top = randomY + 'px';
+        btn.style.transition = 'all 0.3s ease';
+      }
+
+      // Shrink button (Question 2)
+      let shrinkCount = 0;
+      function shrinkButton(btnId) {
+        const btn = document.getElementById(btnId);
+        const msg = document.getElementById('shrinkMessage2');
+        shrinkCount++;
+
+        const newScale = Math.max(0.1, 1 - shrinkCount * 0.15);
+        btn.style.transform = `scale(${newScale})`;
+        btn.style.opacity = newScale;
+
+        if (shrinkCount === 1) {
+          msg.style.opacity = '1';
+        }
+
+        if (shrinkCount >= 6) {
+          btn.style.display = 'none';
+          msg.innerHTML = "Haha! Looks like there's only one choice now! 😄";
+        }
+      }
+
+      // Multiply buttons (Question 3)
+      let buttonsMultiplied = false;
+      function multiplyButtons() {
+        if (buttonsMultiplied) return;
+        buttonsMultiplied = true;
+
+        const container = document.getElementById('buttonContainer3');
+        const msg = document.getElementById('multiplyMessage');
+        msg.style.opacity = '1';
+
+        // Create 5 fake "No" buttons
+        for (let i = 0; i < 5; i++) {
+          setTimeout(() => {
+            const fakeBtn = document.createElement('button');
+            fakeBtn.className = 'btn btn-no';
+            fakeBtn.innerHTML = [
+              'Maybe not? 🤷',
+              'Um... no? 😅',
+              'Actually... 🙈',
+              'Wait... 🤔',
+              'Hmm... 😬',
+            ][i];
+            fakeBtn.onclick = function () {
+              this.style.transform = 'scale(0)';
+              setTimeout(() => this.remove(), 300);
+            };
+            container.appendChild(fakeBtn);
+          }, i * 200);
+        }
+      }
+
+      // Spin button (Question 4)
+      let spinCount = 0;
+      function spinButton(btnId) {
+        const btn = document.getElementById(btnId);
+        const msg = document.getElementById('spinMessage4');
+        spinCount++;
+
+        btn.style.transform = `rotate(${spinCount * 180}deg) scale(${Math.max(0.5, 1 - spinCount * 0.1)})`;
+
+        if (spinCount === 1) {
+          msg.style.opacity = '1';
+        }
+
+        if (spinCount >= 5) {
+          btn.style.opacity = '0';
+          setTimeout(() => {
+            btn.style.display = 'none';
+            msg.innerHTML = 'The button got too dizzy and left! 😂';
+          }, 500);
+        }
+      }
+
+      // Add hover effect to Question 1 button
+      const btn1 = document.getElementById('noBtn1');
+      if (btn1) {
+        btn1.addEventListener('mouseenter', function () {
+          if (Math.random() > 0.2) {
+            moveButton('noBtn1');
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

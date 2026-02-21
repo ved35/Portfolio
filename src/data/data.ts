@@ -63,11 +63,11 @@ export const portfolioData: PortfolioData = {
   experience: [
     {
       id: 1,
-      title: 'Mobile App Developer',
-      company: 'Vasundhara infotech',
-      period: 'May 2025 - Present',
+      title: 'Software Developer',
+      company: 'Palm Infotech',
+      period: 'Jan 2026 - Present',
       description:
-        'Development of customer-facing mobile applications using React-Native and Node.js. Improved performance by 40% through optimization.',
+        'Development of customer-facing mobile applications using React-Native and Nest.js. Improved performance by 40% through optimization.',
       achievements: [
         'Built scalable microservices architecture',
         'Mentored junior developers',
@@ -76,6 +76,19 @@ export const portfolioData: PortfolioData = {
     },
     {
       id: 2,
+      title: 'Mobile App Developer',
+      company: 'Vasundhara infotech',
+      period: 'May 2025 - Nov 2025',
+      description:
+        'Development of customer-facing mobile applications using React-Native and Node.js. Improved performance by 40% through optimization.',
+      achievements: [
+        'Built scalable microservices architecture',
+        'Mentored junior developers',
+        'Reduced deployment time by 50%',
+      ],
+    },
+    {
+      id: 3,
       title: 'Web/App Developer',
       company: 'Palm Infotech',
       period: 'June 2023 - Nov 2024',
@@ -88,7 +101,7 @@ export const portfolioData: PortfolioData = {
       ],
     },
     {
-      id: 3,
+      id: 4,
       title: 'Junior Developer - Intern',
       company: 'Toshal Infotech',
       period: 'Jan 2022 - April 2023',

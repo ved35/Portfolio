@@ -1,3 +1,4 @@
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Hero from './sections/Hero';
@@ -7,6 +8,23 @@ import Projects from './sections/Projects';
 import Experience from './sections/Experience';
 import Education from './sections/Education';
 import Contact from './sections/Contact';
+import SpecialPage from './pages/SpecialPage';
+
+const Portfolio = () => (
+  <>
+    <Navbar />
+    <main>
+      <Hero />
+      <About />
+      <Skills />
+      <Projects />
+      <Experience />
+      <Education />
+      <Contact />
+    </main>
+    <Footer />
+  </>
+);
 
 function App() {
   return (
@@ -16,17 +34,11 @@ function App() {
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/5 rounded-full blur-[100px] animate-float-slow" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent/5 rounded-full blur-[100px] animate-float-medium delay-1000" />
       </div>
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Education />
-        <Contact />
-      </main>
-      <Footer />
+
+      <Routes>
+        <Route path="/" element={<Portfolio />} />
+        <Route path="/special" element={<SpecialPage />} />
+      </Routes>
     </div>
   );
 }
