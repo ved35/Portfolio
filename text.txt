@@ -1,0 +1,522 @@
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║        🎨 UI UPGRADE PROMPT — CINEMATIC CARTOONISH FLOATING ANIMATIONS         ║
+║              Eye-Catching Colors + Dynamic Depth + Magical Atmosphere           ║
+║                    Apply on top of existing birthday website                    ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WHAT TO CHANGE — OVERVIEW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The current UI looks flat, dull, and static. The colors are too soft and washed
+out. The animations feel lifeless. This upgrade transforms the entire website into
+a CINEMATIC, CARTOONISH, MAGICAL experience — like a Pixar-quality birthday card
+came to life on her phone. Think: Disney magic + Studio Ghibli warmth + modern
+motion design energy. Every element should feel alive, bouncy, glowing, and deeply
+lovable.
+
+Apply ALL changes below across all 6 screens without removing any existing
+functionality. This is purely a visual + animation enhancement layer.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 1 — NEW COLOR SYSTEM (Replace ALL existing colors)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STOP using flat single colors. Every surface, every background, every element
+must use GRADIENTS, GLOWS, and DEPTH. Replace the old dull palette entirely.
+
+NEW MASTER COLOR PALETTE:
+──────────────────────────────────────────────────────────────────────────────────
+HOT PINK (primary)       : #FF2D78   ← vivid, punchy, electric
+MAGENTA (accent)         : #FF0099   ← deep pop accent
+CORAL ORANGE             : #FF6B35   ← warm energy, contrast pop
+GOLDEN YELLOW            : #FFD93D   ← bright, sunny, cinematic gold
+LEMON GLOW               : #FFF176   ← light sparkle highlight
+ELECTRIC LAVENDER        : #BF5FFF   ← magical purple depth
+DEEP VIOLET              : #7C00FE   ← rich dark accent for depth
+BABY BLUE SHIMMER        : #00D4FF   ← cool sparkle contrast
+MINT GLOW                : #00FFB3   ← fresh magical accent
+CREAM WHITE              : #FFF8F0   ← warm white for text surfaces
+DEEP NIGHT               : #0D0021   ← night sky base (Screen 6)
+SOFT BLUSH SURFACE       : #FFE4F0   ← card backgrounds
+
+NEW GRADIENT COMBINATIONS (use these everywhere):
+  bg-hero        : linear-gradient(135deg, #FF2D78 0%, #FF6B35 40%, #FFD93D 100%)
+  bg-screen2     : linear-gradient(160deg, #7C00FE 0%, #BF5FFF 50%, #FF2D78 100%)
+  bg-screen3     : linear-gradient(145deg, #FF0099 0%, #FF6B35 60%, #FFD93D 100%)
+  bg-screen4     : linear-gradient(135deg, #BF5FFF 0%, #FF2D78 50%, #FF6B35 100%)
+  bg-screen5     : linear-gradient(150deg, #FF2D78 0%, #7C00FE 60%, #00D4FF 100%)
+  bg-screen6     : linear-gradient(180deg, #0D0021 0%, #1A0050 50%, #2D006E 100%)
+  btn-primary    : linear-gradient(135deg, #FF2D78, #FF0099, #BF5FFF)
+  btn-gold       : linear-gradient(135deg, #FFD93D, #FF6B35, #FF2D78)
+  card-surface   : linear-gradient(145deg, #FFF8F0, #FFE4F0)
+  text-glow-pink : #FF2D78 with text-shadow: 0 0 20px #FF2D7888
+  text-glow-gold : #FFD93D with text-shadow: 0 0 25px #FFD93DAA
+
+GLOW EFFECTS (add to ALL key elements):
+  - Headings        : text-shadow: 0 0 30px currentColor, 0 0 60px currentColor/40%
+  - Buttons         : box-shadow: 0 8px 32px #FF2D7866, 0 0 0 2px #FF2D7833
+  - Cards/boxes     : box-shadow: 0 8px 40px #BF5FFF44, 0 2px 0 #FF2D7822 inset
+  - SVG elements    : filter: drop-shadow(0 0 12px #FFD93D) on glow items
+  - "25" text       : text-shadow: 0 0 40px #FFD93D, 0 0 80px #FF6B3566
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 2 — GLOBAL FLOATING ANIMATION SYSTEM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Add a PERSISTENT FLOATING LAYER on every screen. This is a full-screen absolutely
+positioned div (pointer-events: none, z-index: 0) containing animated floating
+particles. The main content sits above it (z-index: 1).
+
+FLOATING PARTICLE TYPES (mix all of these on each screen):
+
+Type A — GLOWING ORBS:
+  - 8–12 soft circular divs, size: 20–60px, fully rounded
+  - Colors: #FF2D78, #BF5FFF, #FFD93D, #00D4FF (pick 2–3 per screen)
+  - Opacity: 0.15–0.35 (subtle glow, not distracting)
+  - Blur: filter: blur(12px) to blur(24px)
+  - GSAP animation:
+    gsap.to(orb, {
+      y: "random(-40, 40)",
+      x: "random(-20, 20)",
+      scale: "random(0.8, 1.3)",
+      duration: "random(4, 8)",
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      stagger: { each: 0.6, from: "random" }
+    })
+
+Type B — FLOATING HEARTS (♥):
+  - 10–15 heart SVGs or Unicode ♥, size 10–22px
+  - Colors: #FF2D78, #FF0099, #FFD93D
+  - Start at bottom of screen, float upward and fade out
+  - GSAP:
+    gsap.fromTo(heart, 
+      { y: "100vh", opacity: 0, scale: 0.5, x: "random(10, 90)vw" },
+      { y: "-10vh", opacity: [0, 0.8, 0], scale: "random(0.8, 1.4)",
+        duration: "random(5, 9)", repeat: -1, delay: "random(0, 6)",
+        ease: "none" }
+    )
+
+Type C — SPARKLE STARS (✦ / ✧):
+  - 15–20 small star shapes (4-point or 6-point SVG stars), size 6–14px
+  - Color: #FFD93D, #FFF176, #00D4FF
+  - GSAP twinkle: scale 0 → 1 → 0, opacity 0 → 1 → 0, duration 1–2s,
+    repeat -1, stagger random, random positions across screen
+  - Some also drift slowly (x ±30, y ±30, duration 6s, yoyo)
+
+Type D — CONFETTI RIBBONS (screen 2 and screen 5 only):
+  - 30 thin rectangle divs (3×14px), rotated random angles
+  - Colors: full spectrum from new palette
+  - GSAP: fall from y: -20 to y: 110vh, rotation += 360,
+    duration 3–5s, repeat -1, stagger 0.1, x random positions
+
+Type E — FLOATING BUBBLES (screen 3 and 4):
+  - 6–8 transparent circles with colored border (border: 2px solid #FF2D7855)
+  - Size 30–80px, float upward slowly, subtle scale pulse
+  - GSAP: y -200 over 8s, opacity 0→0.5→0, repeat -1, stagger 1.5s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 3 — CINEMATIC SCREEN TRANSITIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Replace the plain fade transitions with CINEMATIC transitions using GSAP.
+
+TRANSITION RULE: Each screen exit + enter uses a different cinematic effect.
+
+Screen 1 → Screen 2 (PIN correct):
+  EXIT  : current screen does a fast scale-up (scale: 1 → 3) + opacity 0,
+          duration 0.5s, ease: "power3.in"
+  ENTER : Screen 2 bursts in from scale: 0.3 → 1, opacity 0 → 1,
+          duration 0.6s, ease: "elastic.out(1, 0.6)"
+  BONUS : White flash overlay (opacity 0 → 1 → 0 over 0.3s) between them
+
+Screen 2 → Screen 3:
+  EXIT  : Slides out to the left (x: 0 → -100vw), duration 0.5s, ease: "power2.in"
+  ENTER : Slides in from right (x: 100vw → 0), duration 0.5s, ease: "power2.out"
+
+Screen 3 → Screen 4:
+  EXIT  : Fades down (y: 0 → 30, opacity 1 → 0), duration 0.4s
+  ENTER : Fades up (y: 40 → 0, opacity 0 → 1), duration 0.5s, ease: "back.out(1.4)"
+
+Screen 4 → Screen 5:
+  EXIT  : Rotates and shrinks (rotation: 0 → -5, scale: 1 → 0.9, opacity 0),
+          duration 0.4s
+  ENTER : Cards pop in one by one (stagger 0.03s, scale: 0 → 1.1 → 1,
+          ease: "back.out(2)", opacity 0 → 1)
+
+Screen 5 → Screen 6:
+  EXIT  : Dissolves upward (y: 0 → -50, opacity 0), blur filter increases,
+          duration 0.6s
+  ENTER : Night sky fades in from #0D0021 with stars twinkling on one by one
+
+Screen 6 → Screen 1 (replay):
+  EXIT  : Zoom out to nothing (scale: 1 → 0, opacity 0), duration 0.5s
+  ENTER : Same PIN screen entrance as very first load
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 4 — SCREEN-BY-SCREEN ANIMATION UPGRADES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+──────────────────────────────────────────────────────────────────────────────────
+SCREEN 1 — PIN LOCK (Upgraded)
+──────────────────────────────────────────────────────────────────────────────────
+
+BACKGROUND:
+  - Replace flat gradient with animated AURORA background:
+    3 large blurred divs (300×300px, border-radius 50%, filter: blur(80px))
+    Colors: #FF2D78, #BF5FFF, #FFD93D
+    GSAP: each slowly drifts to random positions (x ±100, y ±100),
+    scale 0.8–1.4, duration 8–12s, repeat -1, yoyo true
+    Creates an organic, breathing aurora/bokeh background
+
+PIN INPUT BOXES:
+  - Remove plain white boxes. New style:
+    background: rgba(255,255,255,0.15)
+    backdrop-filter: blur(12px)
+    border: 2px solid rgba(255,45,120,0.4)
+    border-radius: 20px
+    box-shadow: 0 8px 32px rgba(191,95,255,0.3), inset 0 1px 0 rgba(255,255,255,0.3)
+  - On FOCUS: border-color: #FFD93D, box-shadow: 0 0 0 3px #FFD93D44,
+    GSAP scale 1 → 1.12 → 1 (0.2s bounce)
+  - On each digit entered: GSAP scale pop (1 → 1.3 → 1, 0.15s, elastic)
+    + small sparkle burst (3 stars) at that input position
+
+SVG ILLUSTRATION UPGRADE:
+  - The two friend figures should have CARTOONISH proportions:
+    larger heads (30% of body height), round eyes (dots), cute hair shapes
+  - Add a PARALLAX effect: as the page loads, background stars drift in one
+    direction at slow speed, figures drift slightly opposite (GSAP + mouse
+    tilt OR auto-drift on mobile)
+  - Balloons: each balloon gets its own independent float timing for organic feel
+    (duration: 2s, 2.4s, 1.8s per balloon, yoyo, repeat -1)
+  - Add a subtle IDLE BREATHING animation to the SVG figures:
+    scaleY 1 → 1.02 → 1, duration 3s, repeat -1, yoyo, transformOrigin: "bottom"
+
+──────────────────────────────────────────────────────────────────────────────────
+SCREEN 2 — CELEBRATION ENTRY (Upgraded)
+──────────────────────────────────────────────────────────────────────────────────
+
+BACKGROUND:
+  - Deep violet → electric pink gradient with the aurora blobs from Screen 1
+    but faster (duration 4–6s) and more vivid — full party energy
+
+"SURPRISE!" TEXT:
+  - Letters animate in ONE BY ONE (not the whole word at once)
+  - Each letter: scale from 0, rotation from random(−20, 20)deg,
+    opacity 0 → 1, stagger 0.08s, ease: "back.out(2)"
+  - After all letters appear: whole word does a BIG BOUNCE (scale 1 → 1.3 → 1)
+  - Color: animated gradient text using CSS animation on background-clip:text
+    gradient cycles: #FFD93D → #FF2D78 → #BF5FFF → #FFD93D, 3s loop
+
+"25" DISPLAY (Screen 2):
+  - The "25" should be GIANT — 120px, bold, gradient text (#FFD93D → #FF6B35)
+  - Surrounded by 10–12 animated star particles orbiting at different radii
+    and speeds using GSAP motionPath (circular path, continuous rotation)
+  - Inner glow: text-shadow layered 3×:
+    0 0 20px #FFD93D, 0 0 60px #FF6B3588, 0 0 100px #FF2D7844
+  - Pulsing scale: 1 → 1.06 → 1, duration 1.5s, repeat -1, yoyo
+
+BALLOONS SVG:
+  - Each balloon is now GRADIENT FILLED (radial gradient, lighter center to
+    deeper edge — gives 3D cartoon volume feel)
+  - Balloon colors: #FF2D78, #FFD93D, #BF5FFF, #00D4FF, #FF6B35
+  - Add a small white highlight oval in top-left of each balloon (cartoon shine)
+  - Strings: SVG path with slight curve, not straight lines
+  - Each balloon: independent float + gentle sway (rotation ±5deg)
+
+──────────────────────────────────────────────────────────────────────────────────
+SCREEN 3 — CAKE CUTTING (Upgraded)
+──────────────────────────────────────────────────────────────────────────────────
+
+CAKE SVG UPGRADE:
+  - Tiers now have GRADIENT FILLS (not flat colors):
+    Bottom tier: radial gradient from #FF85A1 center to #C2185B edge
+    Top tier: radial from #E1BEE7 to #9C27B0
+  - Frosting drips: each drip is a rounded teardrop path, golden (#FFD700)
+    with a subtle GSAP drip animation (scaleY 0 → 1 from top, stagger 0.2s)
+    plays once on screen mount
+  - Candle flames: each flame is now a 3-layer SVG (outer glow orange,
+    mid yellow, inner white core) — creates realistic cartoon flame depth
+    Flame flicker: each layer flickers at slightly different speeds
+  - Add a "steam" effect rising from the cake top: 3–4 wavy SVG paths,
+    opacity 0.3, drift upward slowly (y −40, duration 3s, repeat -1)
+  - Cake plate/stand has a GLOWING SHADOW below it:
+    filter: drop-shadow(0 10px 20px #FF2D7855)
+
+CAKE CUT ANIMATION (enhanced):
+  - When knife slides across: add a GOLDEN LIGHT STREAK following the knife
+    (a thin div with gradient, width 2px, scales from 0 to cake-width,
+    then fades out — duration 0.4s)
+  - After cut: cake pieces now JUMP UP slightly before settling (y −15 → 0,
+    ease: "bounce.out") — cartoonish physics
+  - Confetti burst from cut: 50 particles, GSAP from cake center,
+    shoot outward in all directions, rotate, then fall with gravity
+    (use GSAP CustomBounce or just y + rotation combo)
+  - Slice that floats up: has a cartoon SPARKLE trail following it
+
+COUNTDOWN TIMER UPGRADE:
+  - Cards: glassmorphism style (backdrop-filter: blur(16px),
+    background: rgba(255,255,255,0.1), border: 1px solid rgba(255,255,255,0.2))
+  - Numbers: gradient text (#FFD93D → #FF6B35)
+  - On every second tick: card does a quick FLIP (rotateX 0 → 90 → 0, 0.3s)
+    with the new number appearing at the 90deg point
+  - Subtle glow pulse on the whole timer row every 5 seconds
+
+──────────────────────────────────────────────────────────────────────────────────
+SCREEN 4 — HEARTFELT MESSAGE (Upgraded)
+──────────────────────────────────────────────────────────────────────────────────
+
+BACKGROUND:
+  - Dark-ish romantic gradient: #1A0040 → #3D0070 → #7C0050 (deep, rich, warm)
+  - This makes the text POP and feel intimate/cinematic — like a movie scene
+
+FLOATING HEARTS UPGRADE:
+  - Hearts are now SVG (not Unicode) with gradient fills:
+    radial gradient from #FF6B9D to #FF2D78 to #C2185B
+  - Each heart has a soft glow: filter: drop-shadow(0 0 8px #FF2D7888)
+  - Vary sizes more dramatically: 8px to 40px
+  - Some hearts rotate slowly as they float (rotation ±30deg)
+  - Add 3–4 LARGE hearts (60–80px) that are extremely faint (opacity 0.05)
+    as background texture — barely visible but adds depth
+
+MESSAGE TEXT UPGRADE:
+  - Text color: #FFF8F0 (warm white) on the dark background — high contrast
+  - Each PARAGRAPH fades in and slides up (y: 20 → 0) as the typewriter reaches it
+  - Key emotional phrases get a GLOW highlight as they're typed:
+    Words like "extraordinary", "best friends", "love you" briefly glow
+    in #FFD93D for 1 second then return to normal
+  - Message container: glassmorphism card
+    (background: rgba(255,255,255,0.07), backdrop-filter: blur(20px),
+    border: 1px solid rgba(255,255,255,0.15), border-radius: 24px,
+    padding: 24px)
+
+SVG ILLUSTRATION UPGRADE (Screen 4):
+  - The hugging friends SVG now has a GLOWING AURA around them:
+    Large soft circle behind them, color #BF5FFF, opacity 0.15,
+    GSAP scale 1 → 1.15 → 1, repeat -1, yoyo, duration 3s
+  - Add tiny hearts floating out from the hug area (spawn every 2s,
+    float upward, fade out — GSAP timeline with setTimeout spawning)
+
+──────────────────────────────────────────────────────────────────────────────────
+SCREEN 5 — 25 GIFTS GRID (Upgraded)
+──────────────────────────────────────────────────────────────────────────────────
+
+GIFT BOXES UPGRADE:
+  - Each closed gift box SVG now has:
+    1. GRADIENT WRAPPING PAPER (linear gradient, 2 colors from palette per box,
+       vary across the 24 boxes so no two look identical)
+    2. RIBBON: gradient from #FFD93D to #FF6B35 with metallic look
+    3. BOW: made of 2 curved SVG paths, rounded ends — cartoonish and puffy
+    4. Tiny sparkle (✦) in corner of each box, twinkling (opacity 0→1→0,
+       GSAP, each box's sparkle at different timing)
+    5. Box #25: GOLD everything — gradient #FFD93D → #FF6B35,
+       3D effect via extra shadow layer, bigger bow, crown (♛) icon above it,
+       continuously pulsing glow
+
+  - GRID ENTRANCE ANIMATION: when Screen 5 first appears, all 25 boxes
+    pop in using GSAP stagger:
+    gsap.from(".gift-box", {
+      scale: 0, rotation: "random(-20, 20)", opacity: 0,
+      duration: 0.4, stagger: { each: 0.05, from: "start" },
+      ease: "back.out(2)"
+    })
+
+  - TAP/OPEN ANIMATION (upgrade from before):
+    Step 1: Box wiggles (rotation ±15deg, 0.2s)
+    Step 2: Bow shoots upward (y −60, opacity 0, 0.2s)
+    Step 3: Lid flips open (rotateX 0 → −100deg, perspective 400, 0.25s)
+    Step 4: SPARKLE BURST — 6 small stars shoot out from box center
+             in 6 directions (like a starburst), then fade
+    Step 5: Content fades in (scale 0.8 → 1, opacity 0 → 1, 0.2s)
+    Step 6: Opened box gets a soft inner glow (box-shadow inset)
+
+  - Opened box style: gradient background (#FFF8F0 → #FFE4F0),
+    border: 2px solid #FF2D7844, inner-shadow glow
+
+──────────────────────────────────────────────────────────────────────────────────
+SCREEN 6 — FOREVER PAGE (Upgraded)
+──────────────────────────────────────────────────────────────────────────────────
+
+STARS UPGRADE:
+  - Stars are now SVG 4-point star shapes (not circles), sizes 4–20px
+  - Color: mix of #FFF176, #00D4FF, #FFD93D, #E1BEE7 — colorful night sky
+  - Twinkling: scale 0 → 1 → 0 (not just opacity) — true sparkle effect
+  - Some stars have a brief FLASH (scale 1 → 3 → 1, opacity spike)
+    randomly every few seconds — shooting star feeling
+  - Add 2–3 SHOOTING STAR animations:
+    A thin white line (2×40px div, rotated −30deg) that streaks across
+    the sky (x += 300, opacity 0 → 1 → 0, duration 0.8s),
+    triggers randomly every 6–12 seconds
+
+MOON SVG UPGRADE:
+  - Crescent moon now has a SOFT GLOW HALO (circle behind it,
+    color #FFE066, opacity 0.15, filter: blur(20px), scale pulse 1→1.2→1)
+  - Moon surface has 2–3 small crater circles for cartoon detail
+  - A small star very close to the moon (classic night sky symbol)
+
+LANTERN UPGRADE:
+  - Lantern SVG now has a WARM LIGHT gradient inside (radial from #FFD700
+    to transparent) that PULSES (opacity 0.6 → 1 → 0.6, duration 1.5s, repeat -1)
+  - The light from the lantern casts a soft glow below it
+    (a blurred oval div beneath it, same amber color, follows its y position)
+  - Lantern has a gentle sway (rotation −8 → 8deg, duration 3s, yoyo, repeat -1)
+  - As lantern rises it SHRINKS slightly (scale 1 → 0.7) — perspective effect
+
+SILHOUETTE UPGRADE:
+  - The two silhouettes have a MAGICAL AURA GLOW behind them:
+    Two overlapping soft circles, colors #BF5FFF and #FF2D78,
+    opacity 0.12, filter: blur(30px), gently pulsing scale
+  - Add tiny floating sparkles/stars spawning from around the figures
+    (GSAP timeline that creates a new sparkle div every 1.5s,
+    floats up and fades, then removes element)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 5 — BUTTON & UI ELEMENT UPGRADES (Apply Globally)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ALL BUTTONS:
+  - Background: gradient (btn-primary or btn-gold from Section 1)
+  - border-radius: 50px (fully rounded pill)
+  - padding: 14px 32px
+  - font: Poppins SemiBold, 16px, color white
+  - box-shadow: 0 8px 30px rgba(255,45,120,0.5), 0 2px 0 rgba(255,255,255,0.2) inset
+  - transform: translateY(0)
+  - ON PRESS (active): transform: translateY(3px), box-shadow reduces
+    — cartoonish squish-down feel (GSAP or CSS active state)
+  - ON MOUNT/ENTER: GSAP scale from 0 → 1.1 → 1, ease: "back.out(2)"
+  - Continuous subtle PULSE on main CTA button:
+    GSAP: box-shadow spread oscillates, scale 1 → 1.03 → 1, repeat -1, duration 2s
+
+ALL CARDS / CONTAINERS:
+  - background: rgba(255,255,255,0.12)
+  - backdrop-filter: blur(20px) saturate(1.8)
+  - border: 1px solid rgba(255,255,255,0.25)
+  - border-radius: 24px
+  - box-shadow: 0 8px 40px rgba(191,95,255,0.25), 0 1px 0 rgba(255,255,255,0.3) inset
+
+ALL HEADINGS (Dancing Script):
+  - Use gradient text technique:
+    background: linear-gradient(135deg, #FFD93D, #FF6B35, #FF2D78)
+    -webkit-background-clip: text
+    -webkit-text-fill-color: transparent
+  - text-shadow cannot be used with gradient text — use filter: drop-shadow
+    on parent element instead: filter: drop-shadow(0 0 20px rgba(255,93,53,0.5))
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 6 — CARTOONISH SVG STYLE GUIDE (For all illustrations)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Redraw or upgrade ALL existing SVG illustrations to match this cartoon style:
+
+STYLE RULES:
+  1. OUTLINES: All shapes have a 2–3px stroke in a deeper shade of their fill
+     (e.g. pink fill → deep rose stroke). Stroke-linecap: round,
+     stroke-linejoin: round — NO sharp corners anywhere
+  2. PROPORTIONS: Cartoonish — heads 25–30% of total height, large eyes (if any),
+     stubby rounded limbs, exaggerated cute features
+  3. VOLUME: Every filled shape uses a radial or linear gradient (lighter at top/
+     center, deeper at edges) to simulate 3D roundness
+  4. SHINE: Every balloon, circle, round object gets a small white oval in the
+     top-left quadrant (opacity 0.4–0.6) — classic cartoon highlight
+  5. SHADOWS: Soft ellipse below characters/objects (dark color, opacity 0.1,
+     blur 4–6px) for grounding — prevents floating-in-space look
+  6. EXPRESSIONS: If any character face is shown, use simple dot eyes + curved
+     smile. Keep it minimal and cute, not realistic.
+  7. COLORS: Use the new palette from Section 1 — no more dull pinks.
+     Figures: warm skin (#FFCBA4), hair variations (#4A2912, #FF6B35, #1A1A2E)
+  8. DECORATIVE EXTRAS: Each scene should have at least 3–4 mini decorative
+     elements (stars ★, hearts ♥, sparkles ✦, dots •) floating nearby
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 7 — PERFORMANCE RULES FOR HEAVY ANIMATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Since we are adding many more animations, these rules MUST be followed:
+
+  1. All animated elements: add will-change: transform to their CSS
+  2. GSAP animations: always use transform properties (x, y, scale, rotation)
+     NOT layout properties (width, height, top, left, margin)
+  3. Blurred aurora orbs: use will-change: transform, filter
+  4. Cap floating particles per screen: max 50 animated elements total
+  5. Shooting stars (Screen 6): use setTimeout to spawn, remove DOM element
+     after animation completes (prevents DOM buildup)
+  6. GSAP cleanup: every useEffect/useGSAP that creates tweens must return
+     a cleanup: gsap.context.revert() or tl.kill()
+  7. Backdrop-filter (blur): limit to 3–4 elements per screen on mobile
+     (blur is GPU expensive on older phones)
+  8. Test on Chrome DevTools → Performance tab: aim for 60fps
+     If frame drops, reduce blur radius or particle count first
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 8 — QUICK REFERENCE: WHAT TO CHANGE IN EACH FILE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+index.css:
+  - Add all CSS custom properties (--color-hot-pink, etc.) from Section 1
+  - Add global .gradient-text class
+  - Add global .glass-card class
+  - Add global .glow-btn class
+  - Add aurora background keyframe animation as fallback
+
+App.tsx / main wrapper:
+  - Wrap everything in a dark base (#0D0021) to prevent white flash on load
+
+PinLock.tsx:
+  - New aurora background (3 animated gradient orbs)
+  - Glass PIN inputs
+  - Upgraded SVG illustration (cartoonish friends, gradient balloons)
+  - Floating particle layer (Type A orbs + Type C sparkles)
+
+CelebrationEntry.tsx:
+  - New deep gradient background
+  - Letter-by-letter "SURPRISE!" animation
+  - Gradient balloon SVGs with cartoon shine
+  - Floating particle layer (Type B hearts + Type D confetti ribbons)
+  - Giant glowing "25" with orbiting stars
+
+CakeCutting.tsx:
+  - Gradient cake SVG with drip animation
+  - Enhanced cut sequence (light streak + bounce physics)
+  - Glassmorphism countdown cards with flip animation
+  - Floating particle layer (Type A orbs + Type E bubbles)
+
+HeartfeltMessage.tsx:
+  - Dark romantic background gradient
+  - Glassmorphism message card
+  - SVG gradient hearts, aura around figures
+  - Emotional word glow during typewriter
+  - Floating particle layer (Type B hearts + Type C sparkles)
+
+TwentyFiveGifts.tsx:
+  - Gradient gift box SVGs (varied per box)
+  - Staggered pop-in entrance animation
+  - Enhanced 5-step open animation
+  - Special gold box #25 with crown
+  - Floating particle layer (Type C sparkles + Type D confetti)
+
+ForeverPage.tsx:
+  - Deep night sky gradient background
+  - Colorful SVG star shapes with true sparkle animation
+  - Shooting star effect (random interval)
+  - Upgraded lantern with warm glow pulse
+  - Silhouette aura + spawning sparkles
+  - Floating particle layer (Type C sparkles only — keep it serene)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FINAL INSTRUCTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Apply every change in this document ON TOP of the existing birthday website
+codebase. Do NOT remove any screen content, text, messages, PIN logic,
+countdown logic, or gift box messages. This is purely a VISUAL UPGRADE.
+
+The goal: when she opens this website, it should feel like opening a magical
+storybook — alive, glowing, deeply loving, and unlike anything she has ever
+received before. Every pixel should feel like it was crafted just for her. 💕
+
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║          Visual Upgrade Prompt — Birthday Website — Cinematic Edition 🎬        ║
+║                    Made with love, built with magic 💕✨                         ║
+╚══════════════════════════════════════════════════════════════════════════════════╝

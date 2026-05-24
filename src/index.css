@@ -167,3 +167,150 @@ html.lenis {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+/* Birthday visual upgrade classes */
+:root {
+  --color-hot-pink: #FF4D6D;
+  --color-magenta: #FF758F;
+  --color-coral-orange: #FF85A1;
+  --color-golden-yellow: #FFD93D;
+  --color-lemon-glow: #FFF176;
+  --color-electric-lavender: #BF5FFF;
+  --color-deep-violet: #7C00FE;
+  --color-baby-blue: #00D4FF;
+  --color-mint-glow: #00FFB3;
+  --color-cream-white: #FFF8F0;
+  --color-deep-night: #0D0021;
+  --color-soft-blush: #FFE5EC;
+
+  --grad-hero: linear-gradient(135deg, #2D0B3B 0%, #881337 50%, #FF4D6D 100%);
+  --grad-screen2: linear-gradient(160deg, #3A0066 0%, #C9184A 40%, #FF758F 100%);
+  --grad-screen3: linear-gradient(145deg, #4A123A 0%, #881337 50%, #FF85A1 100%);
+  --grad-screen4: linear-gradient(135deg, #4C0519 0%, #881337 50%, #DB2777 100%);
+  --grad-screen5: linear-gradient(150deg, #FF4D6D 0%, #FF758F 50%, #C9184A 100%);
+  --grad-screen6: linear-gradient(180deg, #0F051D 0%, #200B3B 60%, #4A123A 100%);
+  --grad-btn-primary: linear-gradient(135deg, #FF4D6D, #FF758F, #FF85A1);
+  --grad-btn-gold: linear-gradient(135deg, #FFD93D, #FF6B35, #FF4D6D);
+  --grad-card-surface: linear-gradient(145deg, #FFF8F0, #FFE5EC);
+}
+
+.birthday-bg-screen1 {
+  background: var(--grad-hero);
+}
+
+.birthday-bg-screen2 {
+  background: var(--grad-screen2);
+}
+
+.birthday-bg-screen3 {
+  background: var(--grad-screen3);
+}
+
+.birthday-bg-screen4 {
+  background: var(--grad-screen4);
+}
+
+.birthday-bg-screen5 {
+  background: var(--grad-screen5);
+}
+
+.birthday-bg-screen6 {
+  background: var(--grad-screen6);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #FFD93D, #FF6B35, #FF2D78);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-party {
+  background: linear-gradient(90deg, #FFD93D, #FF2D78, #BF5FFF, #FFD93D);
+  background-size: 300% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: party-text-cycle 3s linear infinite;
+}
+
+@keyframes party-text-cycle {
+  to {
+    background-position: 300% center;
+  }
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 24px;
+  box-shadow: 0 8px 40px rgba(191, 95, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.glass-card-dark {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glow-btn {
+  background: var(--grad-btn-primary);
+  border-radius: 50px;
+  padding: 14px 32px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: white;
+  border: none;
+  box-shadow: 0 8px 30px rgba(255, 45, 120, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  will-change: transform;
+}
+
+.glow-btn:active {
+  transform: translateY(3px) scale(0.98);
+  box-shadow: 0 4px 15px rgba(255, 45, 120, 0.4);
+}
+
+.glow-btn-gold {
+  background: var(--grad-btn-gold);
+  border-radius: 50px;
+  padding: 14px 32px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: white;
+  border: none;
+  box-shadow: 0 8px 30px rgba(255, 107, 53, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  will-change: transform;
+}
+
+.glow-btn-gold:active {
+  transform: translateY(3px) scale(0.98);
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+
+/* Aurora Backdrop fallback */
+@keyframes aurora-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -30px) scale(1.2); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform, filter;
+  pointer-events: none;
+  z-index: 0;
+}
+
