@@ -262,13 +262,6 @@ const CakeCutting = ({ onContinue }: CakeCuttingProps) => {
     });
   }, [onContinue]);
 
-  const countdownItems = [
-    { value: countdown.days, label: 'DAYS' },
-    { value: countdown.hours, label: 'HOURS' },
-    { value: countdown.minutes, label: 'MINS' },
-    { value: countdown.seconds, label: 'SECS' },
-  ];
-
   return (
     <div
       ref={containerRef}
