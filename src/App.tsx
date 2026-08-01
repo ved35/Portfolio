@@ -10,6 +10,7 @@ import Education from './sections/Education';
 import Contact from './sections/Contact';
 import SpecialPage from './pages/SpecialPage';
 import BirthdayPage from './pages/BirthdayPage';
+import FriendshipDayPage from './pages/FriendshipDayPage';
 
 const Portfolio = () => (
   <>
@@ -45,6 +46,7 @@ function App() {
       />
       <Route path="/special" element={<SpecialPage />} />
       <Route path="/birthday" element={<BirthdayPage />} />
+      <Route path="/friendship" element={<FriendshipDayPage />} />
     </Routes>
   );
 }
