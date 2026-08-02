@@ -47,7 +47,12 @@ const TYPING_TEXTS = [
   'Partners in crime, always 💕',
 ];
 
-const FriendshipHero = () => {
+interface FriendshipHeroProps {
+  isActive: boolean;
+  onComplete: () => void;
+}
+
+const FriendshipHero = ({ isActive, onComplete }: FriendshipHeroProps) => {
   const [typedText, setTypedText] = useState('');
   const [textIdx, setTextIdx] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -89,8 +94,8 @@ const FriendshipHero = () => {
     setShowConfetti(true);
     setTimeout(() => setShowConfetti(false), 3000);
 
-    const section = document.getElementById('fd-questions');
-    section?.scrollIntoView({ behavior: 'smooth' });
+    // Advance to next section after brief celebration
+    setTimeout(() => onComplete(), 500);
   };
 
   return (
@@ -162,7 +167,7 @@ const FriendshipHero = () => {
         }}
       >
         <Heart size={14} fill="#ec4899" color="#ec4899" />
-        August 3rd, 2025 — Friendship Day
+        Friendship Day
         <Sparkles size={14} color="#a78bfa" />
       </motion.div>
 

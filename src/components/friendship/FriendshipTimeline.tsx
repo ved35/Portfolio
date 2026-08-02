@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const MEMORIES = [
@@ -49,39 +49,20 @@ const MEMORIES = [
   },
 ];
 
-const useScrollReveal = (threshold = 0.15) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, visible };
-};
 
 const MemoryCard = ({ memory, index }: { memory: typeof MEMORIES[0]; index: number }) => {
-  const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold: 0.2 }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, []);
+    const t = setTimeout(() => setVisible(true), 200 + index * 150);
+    return () => clearTimeout(t);
+  }, [index]);
 
   const isRight = index % 2 === 1;
 
   return (
     <div
-      ref={ref}
       style={{
         display: 'flex',
         justifyContent: isRight ? 'flex-end' : 'flex-start',
@@ -149,8 +130,12 @@ const MemoryCard = ({ memory, index }: { memory: typeof MEMORIES[0]; index: numb
   );
 };
 
-const FriendshipTimeline = () => {
-  const { ref, visible } = useScrollReveal();
+interface FriendshipTimelineProps {
+  isActive: boolean;
+  onComplete: () => void;
+}
+
+const FriendshipTimeline = ({ isActive, onComplete }: FriendshipTimelineProps) => {
 
   return (
     <section
@@ -163,9 +148,8 @@ const FriendshipTimeline = () => {
     >
       {/* Header */}
       <motion.div
-        ref={ref}
         initial={{ opacity: 0, y: 40 }}
-        animate={visible ? { opacity: 1, y: 0 } : {}}
+        animate={isActive ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
         style={{ textAlign: 'center', marginBottom: 72 }}
       >
@@ -201,7 +185,7 @@ const FriendshipTimeline = () => {
         {/* Vertical line */}
         <motion.div
           initial={{ scaleY: 0 }}
-          animate={visible ? { scaleY: 1 } : {}}
+          animate={isActive ? { scaleY: 1 } : {}}
           transition={{ duration: 1.5, ease: 'easeInOut', delay: 0.3 }}
           style={{
             position: 'absolute',
@@ -219,6 +203,15 @@ const FriendshipTimeline = () => {
           <MemoryCard key={m.id} memory={m} index={i} />
         ))}
       </div>
+
+      {/* Continue after timeline is shown */}
+      {isActive && (
+        <div style={{ textAlign: 'center', marginTop: 48, animation: 'fdSlideUp 0.6s ease forwards' }}>
+          <button className="fd-next-btn" onClick={onComplete}>
+            Keep Going 🌟
+          </button>
+        </div>
+      )}
     </section>
   );
 };

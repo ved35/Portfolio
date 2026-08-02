@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface Props {
+  isActive: boolean;
   musicEnabled: boolean;
 }
 
@@ -75,8 +76,7 @@ const FloatingHeart = ({ x, delay }: { x: number; delay: number }) => (
   </motion.div>
 );
 
-const FriendshipCelebration = ({ musicEnabled }: Props) => {
-  const { ref, visible } = useScrollReveal(0.1);
+const FriendshipCelebration = ({ isActive, musicEnabled }: Props) => {
   const [celebrating, setCelebrating] = useState(false);
   const [fireworks, setFireworks] = useState<FireworkParticle[]>([]);
   const [hearts, setHearts] = useState<{ id: number; x: number; delay: number }[]>([]);
@@ -177,9 +177,8 @@ const FriendshipCelebration = ({ musicEnabled }: Props) => {
 
       {/* Header */}
       <motion.div
-        ref={ref}
         initial={{ opacity: 0, y: 50 }}
-        animate={visible ? { opacity: 1, y: 0 } : {}}
+        animate={isActive ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.9 }}
       >
         <div style={{

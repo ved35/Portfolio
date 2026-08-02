@@ -42,11 +42,15 @@ const useScrollReveal = (threshold = 0.2) => {
   return { ref, visible };
 };
 
-const FriendshipQuestions = () => {
+interface FriendshipQuestionsProps {
+  isActive: boolean;
+  onComplete: () => void;
+}
+
+const FriendshipQuestions = ({ isActive, onComplete }: FriendshipQuestionsProps) => {
   const [currentQ, setCurrentQ] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
   const [done, setDone] = useState(false);
-  const { ref, visible } = useScrollReveal();
 
   const handleAnswer = (answer: string) => {
     setSelectedAnswers(prev => ({ ...prev, [currentQ]: answer }));
@@ -64,7 +68,6 @@ const FriendshipQuestions = () => {
   return (
     <section
       id="fd-questions"
-      ref={ref}
       style={{
         padding: '100px 24px',
         maxWidth: 720,
@@ -74,9 +77,8 @@ const FriendshipQuestions = () => {
     >
       <motion.div
         initial={{ opacity: 0, y: 50 }}
-        animate={visible ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8 }}
-      >
+        animate={isActive ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8 }}>
         {/* Section header */}
         <div style={{ textAlign: 'center', marginBottom: 60 }}>
           <div style={{
@@ -236,10 +238,13 @@ const FriendshipQuestions = () => {
               }}>
                 That's exactly what I thought! 🌟
               </h3>
-              <p style={{ color: '#c4b5fd', fontSize: '1.05rem', lineHeight: 1.7, marginBottom: 0 }}>
+              <p style={{ color: '#c4b5fd', fontSize: '1.05rem', lineHeight: 1.7, marginBottom: 32 }}>
                 You answered every single question perfectly —<br />
                 just like you do everything else in life. 💕
               </p>
+              <button className="fd-next-btn" onClick={onComplete}>
+                Continue ✨
+              </button>
             </motion.div>
           )}
         </AnimatePresence>

@@ -22,11 +22,15 @@ const useScrollReveal = (threshold = 0.2) => {
   return { ref, visible };
 };
 
-const FriendshipGift = () => {
+interface FriendshipGiftProps {
+  isActive: boolean;
+  onComplete: () => void;
+}
+
+const FriendshipGift = ({ isActive, onComplete }: FriendshipGiftProps) => {
   const [opened, setOpened] = useState(false);
   const [showItems, setShowItems] = useState(false);
   const [shaking, setShaking] = useState(false);
-  const { ref, visible } = useScrollReveal();
 
   const handleOpen = () => {
     if (opened) return;
@@ -50,9 +54,8 @@ const FriendshipGift = () => {
     >
       {/* Header */}
       <motion.div
-        ref={ref}
         initial={{ opacity: 0, y: 40 }}
-        animate={visible ? { opacity: 1, y: 0 } : {}}
+        animate={isActive ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
       >
         <div style={{
@@ -91,7 +94,7 @@ const FriendshipGift = () => {
           <motion.div
             key="box"
             initial={{ opacity: 0, scale: 0.5 }}
-            animate={visible ? { opacity: 1, scale: 1 } : {}}
+            animate={isActive ? { opacity: 1, scale: 1 } : {}}
             transition={{ type: 'spring', stiffness: 150, delay: 0.3 }}
             style={{ cursor: 'pointer', display: 'inline-block', position: 'relative' }}
             onClick={handleOpen}
@@ -194,33 +197,45 @@ const FriendshipGift = () => {
             {/* Gift items */}
             <AnimatePresence>
               {showItems && (
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'center' }}>
-                  {GIFT_ITEMS.map((item, i) => (
-                    <motion.div
-                      key={item.label}
-                      initial={{ scale: 0, opacity: 0, y: 20 }}
-                      animate={{ scale: 1, opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.15, type: 'spring', stiffness: 200 }}
-                      whileHover={{ scale: 1.08, y: -6 }}
-                      style={{
-                        background: 'rgba(255,255,255,0.06)',
-                        backdropFilter: 'blur(20px)',
-                        border: '1px solid rgba(255,255,255,0.1)',
-                        borderRadius: 20,
-                        padding: '20px 28px',
-                        minWidth: 140,
-                        cursor: 'default',
-                        transition: 'box-shadow 0.3s',
-                        boxShadow: '0 8px 30px rgba(0,0,0,0.2)',
-                      }}
-                    >
-                      <div style={{ fontSize: '2.5rem', marginBottom: 8 }}>{item.emoji}</div>
-                      <p style={{ margin: 0, color: 'rgba(255,255,255,0.8)', fontWeight: 600, fontSize: '0.9rem' }}>
-                        {item.label}
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
+                <>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'center' }}>
+                    {GIFT_ITEMS.map((item, i) => (
+                      <motion.div
+                        key={item.label}
+                        initial={{ scale: 0, opacity: 0, y: 20 }}
+                        animate={{ scale: 1, opacity: 1, y: 0 }}
+                        transition={{ delay: i * 0.15, type: 'spring', stiffness: 200 }}
+                        whileHover={{ scale: 1.08, y: -6 }}
+                        style={{
+                          background: 'rgba(255,255,255,0.06)',
+                          backdropFilter: 'blur(20px)',
+                          border: '1px solid rgba(255,255,255,0.1)',
+                          borderRadius: 20,
+                          padding: '20px 28px',
+                          minWidth: 140,
+                          cursor: 'default',
+                          transition: 'box-shadow 0.3s',
+                          boxShadow: '0 8px 30px rgba(0,0,0,0.2)',
+                        }}
+                      >
+                        <div style={{ fontSize: '2.5rem', marginBottom: 8 }}>{item.emoji}</div>
+                        <p style={{ margin: 0, color: 'rgba(255,255,255,0.8)', fontWeight: 600, fontSize: '0.9rem' }}>
+                          {item.label}
+                        </p>
+                      </motion.div>
+                    ))}
+                  </div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8 }}
+                    style={{ textAlign: 'center', marginTop: 32 }}
+                  >
+                    <button className="fd-next-btn" onClick={onComplete}>
+                      Continue 🎁
+                    </button>
+                  </motion.div>
+                </>
               )}
             </AnimatePresence>
           </motion.div>

@@ -19,13 +19,20 @@ const useScrollReveal = (threshold = 0.2) => {
   return { ref, visible };
 };
 
-const FriendshipFinalMessage = () => {
-  const { ref, visible } = useScrollReveal();
+interface FriendshipFinalMessageProps {
+  isActive: boolean;
+  onComplete: () => void;
+}
+
+const FriendshipFinalMessage = ({ isActive, onComplete }: FriendshipFinalMessageProps) => {
   const [heartBurst, setHeartBurst] = useState(false);
 
   const handleHeartClick = () => {
     setHeartBurst(true);
-    setTimeout(() => setHeartBurst(false), 2000);
+    setTimeout(() => {
+      setHeartBurst(false);
+      onComplete();
+    }, 1200);
   };
 
   return (
@@ -38,9 +45,8 @@ const FriendshipFinalMessage = () => {
       }}
     >
       <motion.div
-        ref={ref}
         initial={{ opacity: 0, y: 60 }}
-        animate={visible ? { opacity: 1, y: 0 } : {}}
+        animate={isActive ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
       >
         {/* Label */}
@@ -120,7 +126,7 @@ const FriendshipFinalMessage = () => {
           {/* Message */}
           <motion.p
             initial={{ opacity: 0 }}
-            animate={visible ? { opacity: 1 } : {}}
+            animate={isActive ? { opacity: 1 } : {}}
             transition={{ delay: 0.5, duration: 1.2 }}
             style={{
               fontSize: 'clamp(1rem, 2.2vw, 1.25rem)',
@@ -140,7 +146,7 @@ const FriendshipFinalMessage = () => {
           {/* Signature */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
-            animate={visible ? { opacity: 1, x: 0 } : {}}
+            animate={isActive ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 1 }}
             style={{
               display: 'flex',
@@ -164,7 +170,7 @@ const FriendshipFinalMessage = () => {
             </div>
             <div>
               <p style={{ margin: 0, color: 'white', fontWeight: 700, fontSize: '1rem' }}>Your Bestie</p>
-              <p style={{ margin: 0, color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem' }}>Friendship Day, 2025</p>
+              <p style={{ margin: 0, color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem' }}>Friendship Day</p>
             </div>
           </motion.div>
         </div>
@@ -219,7 +225,7 @@ const FriendshipFinalMessage = () => {
             ))}
           </motion.button>
           <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.8rem', marginTop: 12 }}>
-            Click the heart 💖
+            Click the heart to continue 💖
           </p>
         </div>
       </motion.div>

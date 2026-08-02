@@ -1,21 +1,25 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-interface Message {
+interface ScriptMsg {
   id: number;
-  from: 'them' | 'me';
   text: string;
   delay: number;
   replies?: string[];
 }
 
-const CHAT_SCRIPT: Message[] = [
-  { id: 1, from: 'them', text: 'I have a confession… 👀', delay: 0, replies: [] },
-  { id: 2, from: 'them', text: 'You are officially my favorite troublemaker ❤️', delay: 1200, replies: ['Aww stop it 😂', 'I knew it!', 'I accept this title 👑'] },
-  { id: 3, from: 'them', text: 'Bestie? More like partner in crime 😏', delay: 0, replies: ['Always & forever', 'Couldn\'t have said it better', 'We ride together 🤝'] },
-  { id: 4, from: 'them', text: 'Honestly... you make every day way more fun 💫', delay: 800, replies: ['You too 💕', 'Same bestie same', 'My heart 🥹'] },
-  { id: 5, from: 'them', text: 'Happy Friendship Day! I\'m so glad you exist 🎉', delay: 1000, replies: ['Happy Friendship Day! 💙', 'Love you bestie! 💖', 'Forever grateful 🌟'] },
+const CHAT_SCRIPT: ScriptMsg[] = [
+  { id: 1, text: 'I have a confession… 👀', delay: 0, replies: [] },
+  { id: 2, text: 'You are officially my favorite troublemaker ❤️', delay: 1200, replies: ['Aww stop it 😂', 'I knew it!', 'I accept this title 👑'] },
+  { id: 3, text: 'Bestie? More like partner in crime 😏', delay: 0, replies: ['Always & forever', "Couldn't have said it better", 'We ride together 🤝'] },
+  { id: 4, text: 'Honestly... you make every day way more fun 💫', delay: 800, replies: ['You too 💕', 'Same bestie same', 'My heart 🥹'] },
+  { id: 5, text: 'Happy Friendship Day! I\'m so glad you exist 🎉', delay: 1000, replies: ['Happy Friendship Day! 💙', 'Love you bestie! 💖', 'Forever grateful 🌟'] },
 ];
+
+// A single timeline entry — either a bestie message or user reply
+type TimelineEvent =
+  | { kind: 'them'; id: number; text: string }
+  | { kind: 'me'; id: number; text: string };
 
 const TypingBubble = () => (
   <div style={{ display: 'flex', gap: 4, alignItems: 'center', padding: '12px 18px' }}>
@@ -30,74 +34,85 @@ const TypingBubble = () => (
   </div>
 );
 
-const useScrollReveal = (threshold = 0.15) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, visible };
-};
+interface FriendshipChatProps {
+  isActive: boolean;
+  onComplete: () => void;
+}
 
-const FriendshipChat = () => {
-  const [visibleMessages, setVisibleMessages] = useState<number[]>([]);
-  const [typingId, setTypingId] = useState<number | null>(null);
+const FriendshipChat = ({ isActive, onComplete }: FriendshipChatProps) => {
+  // Single chronological timeline: bestie msgs + user replies in order
+  const [timeline, setTimeline] = useState<TimelineEvent[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
-  const [pickedReply, setPickedReply] = useState<Record<number, string>>({});
-  const [showReplies, setShowReplies] = useState<number | null>(null);
+  const [awaitingReplyFor, setAwaitingReplyFor] = useState<number | null>(null);
+  const [chatDone, setChatDone] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
-  const { ref, visible } = useScrollReveal();
 
+  // Drive the chat forward one step at a time
   useEffect(() => {
-    if (!visible || currentStep >= CHAT_SCRIPT.length) return;
-    const msg = CHAT_SCRIPT[currentStep];
-    const baseDelay = msg.delay;
+    if (!isActive || awaitingReplyFor !== null) return; // wait if user needs to reply
+    if (currentStep >= CHAT_SCRIPT.length) {
+      setChatDone(true);
+      return;
+    }
 
-    setTypingId(msg.id);
+    const msg = CHAT_SCRIPT[currentStep];
+
+    // Show typing indicator
+    setIsTyping(true);
     const timer = setTimeout(() => {
-      setTypingId(null);
-      setVisibleMessages(p => [...p, msg.id]);
+      setIsTyping(false);
+      // Append bestie message to timeline
+      setTimeline(prev => [...prev, { kind: 'them', id: msg.id, text: msg.text }]);
+
       if (msg.replies && msg.replies.length > 0) {
-        setShowReplies(msg.id);
+        // Pause and wait for user to pick a reply
+        setAwaitingReplyFor(msg.id);
       } else {
+        // No reply needed, advance after short pause
         setTimeout(() => setCurrentStep(s => s + 1), 600);
       }
-    }, baseDelay + 1400);
+    }, msg.delay + 1200);
 
     return () => clearTimeout(timer);
-  }, [visible, currentStep]);
+  }, [isActive, currentStep, awaitingReplyFor]);
 
+  // Auto-scroll to bottom whenever timeline changes
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, [visibleMessages, typingId]);
+    setTimeout(() => {
+      chatEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 80);
+  }, [timeline, isTyping, awaitingReplyFor]);
 
-  const handleReply = (msgId: number, reply: string) => {
-    setPickedReply(p => ({ ...p, [msgId]: reply }));
-    setShowReplies(null);
-    setTimeout(() => setCurrentStep(s => s + 1), 800);
+  const handleReply = (reply: string) => {
+    // 1. Add user's reply IMMEDIATELY to timeline (after the bestie msg they replied to)
+    setTimeline(prev => [...prev, { kind: 'me', id: Date.now(), text: reply }]);
+    setAwaitingReplyFor(null);
+    // 2. Advance to next bestie message after a short pause
+    setTimeout(() => setCurrentStep(s => s + 1), 700);
   };
+
+  const currentReplies =
+    awaitingReplyFor !== null
+      ? CHAT_SCRIPT.find(m => m.id === awaitingReplyFor)?.replies ?? []
+      : [];
 
   return (
     <section
-      ref={ref}
       style={{
-        padding: '80px 24px',
+        padding: '60px 24px 24px',
         maxWidth: 680,
         margin: '0 auto',
+        width: '100%',
         position: 'relative',
       }}
     >
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
-        animate={visible ? { opacity: 1, y: 0 } : {}}
+        animate={isActive ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7 }}
-        style={{ textAlign: 'center', marginBottom: 48 }}
+        style={{ textAlign: 'center', marginBottom: 32 }}
       >
         <div style={{
           display: 'inline-block',
@@ -109,7 +124,7 @@ const FriendshipChat = () => {
           color: '#93c5fd',
           letterSpacing: '0.08em',
           textTransform: 'uppercase',
-          marginBottom: 20,
+          marginBottom: 16,
         }}>
           ✦ Chat History ✦
         </div>
@@ -129,7 +144,7 @@ const FriendshipChat = () => {
       {/* Chat window */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
-        animate={visible ? { opacity: 1, y: 0 } : {}}
+        animate={isActive ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, delay: 0.2 }}
         style={{
           background: 'rgba(255,255,255,0.03)',
@@ -140,24 +155,24 @@ const FriendshipChat = () => {
           boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
         }}
       >
-        {/* Chat header */}
+        {/* Chat header bar */}
         <div style={{
           background: 'rgba(255,255,255,0.04)',
           borderBottom: '1px solid rgba(255,255,255,0.06)',
-          padding: '16px 20px',
+          padding: '14px 20px',
           display: 'flex',
           alignItems: 'center',
           gap: 12,
         }}>
           <div style={{
-            width: 40,
-            height: 40,
+            width: 38,
+            height: 38,
             borderRadius: '50%',
             background: 'linear-gradient(135deg, #ec4899, #8b5cf6)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '1.2rem',
+            fontSize: '1.1rem',
           }}>
             💖
           </div>
@@ -167,30 +182,26 @@ const FriendshipChat = () => {
           </div>
         </div>
 
-        {/* Messages */}
+        {/* ── Unified timeline messages ── */}
         <div style={{
-          padding: '24px 20px',
-          minHeight: 360,
-          maxHeight: 480,
+          padding: '20px 20px 12px',
+          minHeight: 280,
+          maxHeight: 360,
           overflowY: 'auto',
           display: 'flex',
           flexDirection: 'column',
-          gap: 12,
+          gap: 10,
         }}>
-          <AnimatePresence>
-            {visibleMessages.map(id => {
-              const msg = CHAT_SCRIPT.find(m => m.id === id)!;
-              const isMe = msg.from === 'me';
+          <AnimatePresence initial={false}>
+            {timeline.map(event => {
+              const isMe = event.kind === 'me';
               return (
                 <motion.div
-                  key={id}
-                  initial={{ opacity: 0, y: 16, scale: 0.9 }}
+                  key={event.id}
+                  initial={{ opacity: 0, y: 14, scale: 0.93 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-                  style={{
-                    display: 'flex',
-                    justifyContent: isMe ? 'flex-end' : 'flex-start',
-                  }}
+                  transition={{ type: 'spring', stiffness: 220, damping: 22 }}
+                  style={{ display: 'flex', justifyContent: isMe ? 'flex-end' : 'flex-start' }}
                 >
                   <div style={{
                     maxWidth: '78%',
@@ -198,7 +209,7 @@ const FriendshipChat = () => {
                       ? 'linear-gradient(135deg, #ec4899, #8b5cf6)'
                       : 'rgba(255,255,255,0.08)',
                     borderRadius: isMe ? '20px 20px 4px 20px' : '20px 20px 20px 4px',
-                    padding: '12px 18px',
+                    padding: '11px 18px',
                     color: 'white',
                     fontSize: '0.95rem',
                     lineHeight: 1.5,
@@ -207,37 +218,14 @@ const FriendshipChat = () => {
                       : '0 4px 20px rgba(0,0,0,0.2)',
                     border: isMe ? 'none' : '1px solid rgba(255,255,255,0.08)',
                   }}>
-                    {msg.text}
+                    {event.text}
                   </div>
                 </motion.div>
               );
             })}
 
-            {/* User replied messages */}
-            {Object.entries(pickedReply).map(([msgId, reply]) => (
-              <motion.div
-                key={`reply-${msgId}`}
-                initial={{ opacity: 0, y: 16, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ type: 'spring', stiffness: 200 }}
-                style={{ display: 'flex', justifyContent: 'flex-end' }}
-              >
-                <div style={{
-                  maxWidth: '78%',
-                  background: 'linear-gradient(135deg, #ec4899, #8b5cf6)',
-                  borderRadius: '20px 20px 4px 20px',
-                  padding: '12px 18px',
-                  color: 'white',
-                  fontSize: '0.95rem',
-                  boxShadow: '0 4px 20px rgba(236,72,153,0.3)',
-                }}>
-                  {reply}
-                </div>
-              </motion.div>
-            ))}
-
-            {/* Typing bubble */}
-            {typingId && (
+            {/* Typing indicator */}
+            {isTyping && (
               <motion.div
                 key="typing"
                 initial={{ opacity: 0, y: 10 }}
@@ -258,27 +246,31 @@ const FriendshipChat = () => {
           <div ref={chatEndRef} />
         </div>
 
-        {/* Reply options */}
+        {/* Reply options — appear below current timeline */}
         <AnimatePresence>
-          {showReplies !== null && (
+          {awaitingReplyFor !== null && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ duration: 0.3 }}
               style={{
                 borderTop: '1px solid rgba(255,255,255,0.06)',
-                padding: '16px 20px',
+                padding: '14px 20px',
                 display: 'flex',
                 gap: 10,
                 flexWrap: 'wrap',
               }}
             >
-              {CHAT_SCRIPT.find(m => m.id === showReplies)?.replies?.map((r) => (
+              {currentReplies.map((r, i) => (
                 <motion.button
                   key={r}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.07 }}
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => handleReply(showReplies!, r)}
+                  onClick={() => handleReply(r)}
                   style={{
                     background: 'rgba(236,72,153,0.1)',
                     border: '1px solid rgba(236,72,153,0.3)',
@@ -299,6 +291,15 @@ const FriendshipChat = () => {
           )}
         </AnimatePresence>
       </motion.div>
+
+      {/* Continue button after chat finishes */}
+      {chatDone && (
+        <div style={{ textAlign: 'center', marginTop: 24, animation: 'fdSlideUp 0.6s ease forwards' }}>
+          <button className="fd-next-btn" onClick={onComplete}>
+            Continue 💬
+          </button>
+        </div>
+      )}
     </section>
   );
 };
