@@ -1,23 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
 
 const MESSAGE =
   "Happy Friendship Day! Thank you for every laugh, every late-night conversation, every crazy adventure, and every moment you've made brighter. No matter where life takes us, you'll always have a special place in my heart. Here's to countless more memories together. 💙";
 
-const useScrollReveal = (threshold = 0.2) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, visible };
-};
 
 interface FriendshipFinalMessageProps {
   isActive: boolean;

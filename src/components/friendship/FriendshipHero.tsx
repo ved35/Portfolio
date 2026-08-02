@@ -52,7 +52,7 @@ interface FriendshipHeroProps {
   onComplete: () => void;
 }
 
-const FriendshipHero = ({ isActive, onComplete }: FriendshipHeroProps) => {
+const FriendshipHero = ({ onComplete }: FriendshipHeroProps) => {
   const [typedText, setTypedText] = useState('');
   const [textIdx, setTextIdx] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
